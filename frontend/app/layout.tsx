@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Notify from "@/components/Notify";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Orçamentos",
