@@ -1,3 +1,5 @@
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import Link from "next/link";
 
 /*
@@ -22,30 +24,12 @@ export default function SystemLayout({
 }>) {
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      {/*Header*/}
-      <header className="navbar-custom">
-        <div>
-          <Link href="/home" style={{ fontSize: "1.25rem" }}>Sistema de Orçamentos</Link>
-        </div>
-        <nav style={{ display: "flex", gap: "1rem" }}>
-          <Link href="/produtos">Produtos</Link>
-          <Link href="/clientes">Clientes</Link>
-          <Link href="/orcamentos">Orçamentos</Link>
-          <Link href="/usuario">Usuário</Link>
-        </nav>
-      </header>
-
+      <Header />
       <main className="container my-4" style={{ flex: 1 }}>
         {children}
       </main>
-
-      {/*Footer*/}
-      <footer className="footer-custom">
-        <div>
-          <p style={{ margin: 0 }}>Sistema de Orçamentos Projeto Final ADS © 2026. Todos os direitos reservados.</p>
-          <p style={{ margin: 0, opacity: 0.7, fontSize: "0.9rem" }}>Desenvolvido por: Lázaro</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
+
   );
 }
