@@ -21,33 +21,29 @@ export default function SystemLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {/*Header*/}
-      <header className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container">
-          <Link href="/home" className="navbar-brand">Sistema de Orçamentos</Link>
-          <nav>
-            {/*Links de navegacao*/}
-            <Link href="/produtos" className="nav-link">Produtos</Link>
-            <Link href="/clientes" className="nav-link">Clientes</Link>
-            <Link href="/orcamentos" className="nav-link">Orçamentos</Link>
-            <Link href="/usuario" className="nav-link">Usuário</Link>
-          </nav>
+      <header className="navbar-custom">
+        <div>
+          <Link href="/home" style={{ fontSize: "1.25rem" }}>Sistema de Orçamentos</Link>
         </div>
+        <nav style={{ display: "flex", gap: "1rem" }}>
+          <Link href="/produtos">Produtos</Link>
+          <Link href="/clientes">Clientes</Link>
+          <Link href="/orcamentos">Orçamentos</Link>
+          <Link href="/usuario">Usuário</Link>
+        </nav>
       </header>
-      <main>{children}</main>
-      {/* TODO: <Footer /> aqui */}
 
-      <footer className="footer py-4 bg-light">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <p className="text-muted">Sistema de Orçamentos Projeto Final ADS © 2026. Todos os direitos reservados.</p>
-            </div>
-            <div className="col-md-6 text-end">
-              <p className="text-muted">Desenvolvido por: Lázaro</p>
-            </div>
-          </div>
+      <main className="container my-4" style={{ flex: 1 }}>
+        {children}
+      </main>
+
+      {/*Footer*/}
+      <footer className="footer-custom">
+        <div>
+          <p style={{ margin: 0 }}>Sistema de Orçamentos Projeto Final ADS © 2026. Todos os direitos reservados.</p>
+          <p style={{ margin: 0, opacity: 0.7, fontSize: "0.9rem" }}>Desenvolvido por: Lázaro</p>
         </div>
       </footer>
     </div>

@@ -13,3 +13,155 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 /* Escreva seus estilos globais abaixo */
+
+:root {
+    /* Cores - Paleta Principal */
+    --color-navy: #0f172a;
+    /* Azul Marinho */
+    --color-blue-light: #3b82f6;
+    /* Azul Claro */
+    --color-blue-hover: #2563eb;
+    /* Azul Claro (Hover) */
+    --color-bg-light: #f8fafc;
+    /* Cinza Claro */
+
+    /* Cores - Textos e Superfícies */
+    --color-text-body: #334155;
+    /* Texto Corpo Principal */
+    --color-surface: #ffffff;
+    /* Fundo Branco */
+
+    /* Tipografia */
+    --font-primary: var(--font-geist-sans), sans-serif;
+    --font-mono: var(--font-geist-mono), monospace;
+
+    /* Sombras (Shadows) */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+    /* Bordas Arredondadas */
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+}
+
+/* 
+ * ==========================================
+ * BASE STYLES 
+ * ==========================================
+ */
+body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-body);
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--color-navy);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    margin-top: 0;
+}
+
+a {
+    color: var(--color-blue-light);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: var(--color-blue-hover);
+}
+
+/* 
+ * ==========================================
+ * COMPONENTES GLOBAIS (DESIGN SYSTEM)
+ * ==========================================
+ */
+
+/* Navbar Customizada */
+.navbar-custom {
+    background-color: var(--color-navy);
+    color: var(--color-surface);
+    padding: 1rem 2rem;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-custom a {
+    color: var(--color-surface);
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.navbar-custom a:hover {
+    opacity: 1;
+    color: var(--color-surface);
+}
+
+/* Footer Customizado */
+.footer-custom {
+    background-color: var(--color-navy);
+    color: var(--color-surface);
+    padding: 2rem;
+    text-align: center;
+    margin-top: auto;
+    /* Empurra o footer para o final da página */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Superfícies / Cards Brancos */
+.card-surface {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.card-surface:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+/* Botão Primário Moderno */
+.btn-primary-custom {
+    background-color: var(--color-blue-light);
+    color: var(--color-surface);
+    border: none;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary-custom:hover {
+    background-color: var(--color-blue-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    color: var(--color-surface);
+}
+
+.btn-primary-custom:active {
+    transform: translateY(0);
+}
