@@ -1,36 +1,11 @@
-export interface Produto {
-    id: number;
-    nome: string;
-    preco: number;
+export type Produto = {
+    id?: number | undefined | null;
+    codigoSku?: string;
+    nome?: string;
     descricao?: string;
-}
-
-export interface NovoProduto {
-    nome: string;
-    preco: number;
-    descricao?: string;
-}
-
-export interface UpdateProduto {
-    nome: string;
-    preco: number;
-    descricao?: string;
-}
-
-export interface DeleteProduto {
-    id: number;
-}
-
-export interface EncontrarProduto {
-    id: number;
-    nome: string;
-    preco: number;
-    descricao?: string;
-}
-
-export type ListaProdutos = EncontrarProduto[];
-
-export type RespostaApi = {
-    sucesso: boolean;
-    dados: ListaProdutos | EncontrarProduto | string | null;
-}
+    precoUnitario?: number;
+    unidade?: string;
+    ativo?: boolean;
+    criadoEm?: Date;
+    atualizadoEm?: Date;
+};

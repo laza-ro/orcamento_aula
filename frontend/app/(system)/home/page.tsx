@@ -1,10 +1,9 @@
 export default function Home() {
-	return(
+	return (
 		<div>
-			<h1>Home</h1>
-			<p>Bem-vindo ao sistema de pequena empresa</p>
-			<p>Este é um sistema de pequena empresa</p>
-			<p>Este é um sistema de pequena empresa</p>
+			<h1 className="text-3xl font-bold mb-4">Bem-vindo(a) ao nosso sistema de orçamentos!</h1>
+			<h2>Faça seu pedido clicando abaixo!</h2>
+
 		</div>
 	)
 

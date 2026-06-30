@@ -1,32 +1,12 @@
-export interface Cliente {
-    id: number;
+/** Payload para POST /clientes (camelCase, alinhado ao DTO da API). */
+export type Cliente = {
+    id?: number;
     nome: string;
-    email?: string;
-    telefone?: string;
-}
-
-export interface CriarCliente {
-    nome: string;
-    email?: string;
-    telefone?: string;
-}
-
-export interface AtualizarCliente {
-    nome: string;
-    email?: string;
-    telefone?: string;
-}
-
-export interface EncontrarCliente {
-    id: number;
-    nome: string;
-    email?: string;
-    telefone?: string;
-}
-
-export type ListaClientes = EncontrarCliente[];
-
-export type RespostaApi = {
-    sucesso: boolean;
-    dados: ListaClientes | EncontrarCliente | string | null;
-}
+    documento?: string | null;
+    email?: string | null;
+    telefone?: string | null;
+    observacoes?: string | null;
+    usuarioCriadorId?: number | null;
+    criadoEm?: Date;
+    atualizadoEm?: Date;
+};
