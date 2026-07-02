@@ -1,23 +1,22 @@
 "use client";
 
 import React, { useState } from 'react';
-import { NovoProduto } from '@/types/produtos';
+import { NovoCliente } from '@/types/clientes';
 import { useRouter } from 'next/navigation';
-import { criarProduto } from '../actions';
+import { criarCliente } from '../actions';
 import Link from 'next/link';
 
-export default function NovoProdutoPage() {
+export default function NovoClientePage() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const [formData, setFormData] = useState<NovoProduto>({
+    const [formData, setFormData] = useState<NovoCliente>({
         nome: "",
-        codigo_sku: "",
-        descricao: "",
-        preco_unitario: 0,
-        unidade: "UN",
-        ativo: true,
+        documento: "",
+        email: "",
+        telefone: "",
+        observacoes: "",
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -25,20 +24,20 @@ export default function NovoProdutoPage() {
         setLoading(true);
         setError(null);
 
-        const response = await criarProduto(formData);
+        const response = await criarCliente(formData);
 
         if ('error' in response) {
             setError(response.error);
             setLoading(false);
         } else {
-            router.push('/produtos');
+            router.push('/clientes');
         }
     }
 
     return (
         <div className="card shadow-sm max-w-2xl mx-auto" style={{ maxWidth: "600px" }}>
             <div className="card-header bg-white">
-                <h3 className="mb-0">Novo Produto</h3>
+                <h3 className="mb-0">Novo Cliente</h3>
             </div>
             <div className="card-body">
                 {error && <div className="alert alert-danger">{error}</div>}
@@ -57,67 +56,51 @@ export default function NovoProdutoPage() {
                     
                     <div className="row mb-3">
                         <div className="col-md-6">
-                            <label className="form-label">Código (SKU)</label>
+                            <label className="form-label">Documento (CPF/CNPJ)</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                value={formData.codigo_sku || ""}
-                                onChange={(e) => setFormData({ ...formData, codigo_sku: e.target.value })}
+                                value={formData.documento || ""}
+                                onChange={(e) => setFormData({ ...formData, documento: e.target.value })}
                             />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Unidade *</label>
+                            <label className="form-label">Telefone</label>
                             <input
                                 type="text"
-                                required
                                 className="form-control"
-                                value={formData.unidade}
-                                onChange={(e) => setFormData({ ...formData, unidade: e.target.value })}
+                                value={formData.telefone || ""}
+                                onChange={(e) => setFormData({ ...formData, telefone: e.target.value })}
                             />
                         </div>
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-label">Preço Unitário (R$) *</label>
+                        <label className="form-label">Email</label>
                         <input
-                            type="number"
-                            required
-                            step="0.01"
-                            min="0"
+                            type="email"
                             className="form-control"
-                            value={formData.preco_unitario}
-                            onChange={(e) => setFormData({ ...formData, preco_unitario: Number(e.target.value) })}
+                            value={formData.email || ""}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label">Descrição</label>
+                    <div className="mb-4">
+                        <label className="form-label">Observações</label>
                         <textarea
                             className="form-control"
                             rows={3}
-                            value={formData.descricao || ""}
-                            onChange={(e) => setFormData({ ...formData, descricao: e.target.value })}
+                            value={formData.observacoes || ""}
+                            onChange={(e) => setFormData({ ...formData, observacoes: e.target.value })}
                         />
-                    </div>
-
-                    <div className="mb-4 form-check form-switch">
-                        <input 
-                            className="form-check-input" 
-                            type="checkbox" 
-                            role="switch" 
-                            id="ativoSwitch"
-                            checked={formData.ativo}
-                            onChange={(e) => setFormData({ ...formData, ativo: e.target.checked })}
-                        />
-                        <label className="form-check-label" htmlFor="ativoSwitch">Produto Ativo</label>
                     </div>
 
                     <div className="d-flex justify-content-end gap-2">
-                        <Link href="/produtos" className="btn btn-secondary">
+                        <Link href="/clientes" className="btn btn-secondary">
                             Cancelar
                         </Link>
                         <button type="submit" className="btn btn-primary" disabled={loading}>
-                            {loading ? "Salvando..." : "Salvar Produto"}
+                            {loading ? "Salvando..." : "Salvar Cliente"}
                         </button>
                     </div>
                 </form>

@@ -23,13 +23,12 @@ export default function SystemLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <div className="d-flex flex-column min-vh-100">
       <Header />
-      <main className="container my-4" style={{ flex: 1 }}>
+      <main className="container my-4 flex-grow-1">
         {children}
       </main>
       <Footer />
     </div>
-
   );
 }

@@ -7,6 +7,14 @@ export type Cliente = {
     telefone?: string | null;
     observacoes?: string | null;
     usuarioCriadorId?: number | null;
-    criadoEm?: Date;
-    atualizadoEm?: Date;
+    criadoEm?: string | Date;
+    atualizadoEm?: string | Date;
+};
+
+export type NovoCliente = {
+    nome: string;
+    documento?: string | null;
+    email?: string | null;
+    telefone?: string | null;
+    observacoes?: string | null;
 };

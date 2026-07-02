@@ -1,11 +1,20 @@
 export type Produto = {
     id?: number | undefined | null;
-    codigoSku?: string;
-    nome?: string;
-    descricao?: string;
-    precoUnitario?: number;
+    codigo_sku?: string | null;
+    nome: string;
+    descricao?: string | null;
+    preco_unitario: number;
     unidade?: string;
     ativo?: boolean;
-    criadoEm?: Date;
-    atualizadoEm?: Date;
+    criado_em?: string | Date;
+    atualizado_em?: string | Date;
+};
+
+export type NovoProduto = {
+    codigo_sku?: string | null;
+    nome: string;
+    descricao?: string | null;
+    preco_unitario: number;
+    unidade?: string;
+    ativo?: boolean;
 };

@@ -1,33 +1,59 @@
 "use client";
 
-import React, { useState } from 'react';
-import { NovoProduto } from '@/types/produtos';
+import React, { useState, useEffect, use } from 'react';
+import { Produto } from '@/types/produtos';
 import { useRouter } from 'next/navigation';
-import { criarProduto } from '../actions';
+import { getProduto, atualizarProduto, excluirProduto } from '../actions';
 import Link from 'next/link';
 
-export default function NovoProdutoPage() {
+export default function EditarProdutoPage({ params }: { params: Promise<{ id: string }> }) {
     const router = useRouter();
+    const { id } = use(params);
+    const produtoId = Number(id);
+
     const [loading, setLoading] = useState(false);
+    const [fetching, setFetching] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const [formData, setFormData] = useState<NovoProduto>({
-        nome: "",
-        codigo_sku: "",
-        descricao: "",
-        preco_unitario: 0,
-        unidade: "UN",
-        ativo: true,
-    });
+    const [formData, setFormData] = useState<Partial<Produto>>({});
+
+    useEffect(() => {
+        if (!produtoId) return;
+        
+        getProduto(produtoId).then((data) => {
+            if (data) {
+                setFormData(data);
+            } else {
+                setError("Produto não encontrado.");
+            }
+            setFetching(false);
+        }).catch(err => {
+            setError(err.message || "Erro ao carregar produto.");
+            setFetching(false);
+        });
+    }, [produtoId]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
 
-        const response = await criarProduto(formData);
+        const response = await atualizarProduto(produtoId, formData);
 
-        if ('error' in response) {
+        if (response && 'error' in response) {
+            setError(response.error as string);
+            setLoading(false);
+        } else {
+            router.push('/produtos');
+        }
+    }
+
+    const handleExcluir = async () => {
+        if (!confirm("Tem certeza que deseja excluir este produto?")) return;
+        
+        setLoading(true);
+        const response = await excluirProduto(produtoId);
+        if (typeof response === 'object' && 'error' in response) {
             setError(response.error);
             setLoading(false);
         } else {
@@ -35,10 +61,16 @@ export default function NovoProdutoPage() {
         }
     }
 
+    if (fetching) return <div className="text-center py-5">Carregando produto...</div>;
+    if (error && !formData.nome) return <div className="alert alert-danger">{error}</div>;
+
     return (
         <div className="card shadow-sm max-w-2xl mx-auto" style={{ maxWidth: "600px" }}>
-            <div className="card-header bg-white">
-                <h3 className="mb-0">Novo Produto</h3>
+            <div className="card-header bg-white d-flex justify-content-between align-items-center">
+                <h3 className="mb-0">Editar Produto</h3>
+                <button type="button" className="btn btn-sm btn-outline-danger" onClick={handleExcluir} disabled={loading}>
+                    Excluir
+                </button>
             </div>
             <div className="card-body">
                 {error && <div className="alert alert-danger">{error}</div>}
@@ -50,7 +82,7 @@ export default function NovoProdutoPage() {
                             type="text"
                             required
                             className="form-control"
-                            value={formData.nome}
+                            value={formData.nome || ""}
                             onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
                         />
                     </div>
@@ -71,7 +103,7 @@ export default function NovoProdutoPage() {
                                 type="text"
                                 required
                                 className="form-control"
-                                value={formData.unidade}
+                                value={formData.unidade || ""}
                                 onChange={(e) => setFormData({ ...formData, unidade: e.target.value })}
                             />
                         </div>
@@ -85,7 +117,7 @@ export default function NovoProdutoPage() {
                             step="0.01"
                             min="0"
                             className="form-control"
-                            value={formData.preco_unitario}
+                            value={formData.preco_unitario || 0}
                             onChange={(e) => setFormData({ ...formData, preco_unitario: Number(e.target.value) })}
                         />
                     </div>
@@ -106,7 +138,7 @@ export default function NovoProdutoPage() {
                             type="checkbox" 
                             role="switch" 
                             id="ativoSwitch"
-                            checked={formData.ativo}
+                            checked={formData.ativo ?? true}
                             onChange={(e) => setFormData({ ...formData, ativo: e.target.checked })}
                         />
                         <label className="form-check-label" htmlFor="ativoSwitch">Produto Ativo</label>
@@ -117,7 +149,7 @@ export default function NovoProdutoPage() {
                             Cancelar
                         </Link>
                         <button type="submit" className="btn btn-primary" disabled={loading}>
-                            {loading ? "Salvando..." : "Salvar Produto"}
+                            {loading ? "Salvando..." : "Atualizar Produto"}
                         </button>
                     </div>
                 </form>
